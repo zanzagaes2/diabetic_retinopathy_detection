@@ -39,7 +39,7 @@ The structure of the code is the following
 - ``lib\efficientnet_headed``: contains the definition of an additional head that is useful for extraction of embeddings 
 - - ``lib\blending``: contains the definition of an additional head that can be used to generate binocular predictions, using information from left and right eyes at the same time.
 - ``lib\model``: contains the code for training, calibrating, and evaluating the model and for generating the predictions.
-- ``lib\visualization``: contains code to generate different visualizations, as CAM or GradCAM
+- ``lib\utilities``: contains utilities code, as well as tools to generate different visualizations, as CAM or GradCAM
 
 # Training a Vision Transformer
 We have also fine-tuned [MIL-VT](https://github.com/greentreeys/MIL-VT) from the paper [MIL-VT: Multiple Instance Learning Enhanced Vision Transformer for Fundus Image Classification](https://link.springer.com/chapter/10.1007/978-3-030-87237-3_5).

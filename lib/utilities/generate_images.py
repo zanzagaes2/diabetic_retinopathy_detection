@@ -47,6 +47,10 @@ class AttentionGenerator(VisualizationGenerator):
 
     @staticmethod
     def rollout(attentions, discard_ratio, head_fusion):
+        """
+        Refactored from https://github.com/jacobgil/vit-explain
+        All code is under a MIT licence
+        """
         result = torch.eye(attentions[0].size(-1))
         with torch.no_grad():
             for attention in attentions:
@@ -57,8 +61,6 @@ class AttentionGenerator(VisualizationGenerator):
                         attention_heads_fused = attention.max(axis=1)[0]
                     case "min":
                         attention_heads_fused = attention.min(axis=1)[0]
-                    case _:
-                        raise "Attention head fusion type Not supported"
 
                 flat = attention_heads_fused.view(attention_heads_fused.size(0), -1)
                 _, indices = flat.topk(int(flat.size(-1) * discard_ratio), -1, False)
@@ -134,6 +136,10 @@ class AttentionGradGenerator(VisualizationGenerator):
 
     @staticmethod
     def grad_rollout(attention, gradients, discard_ratio):
+        """
+        Refactored from https://github.com/jacobgil/vit-explain
+        All code is under a MIT licence
+        """ 
         result = torch.eye(attention[0].size(-1))
         with torch.no_grad():
             for attention, grad in zip(attention, gradients):
