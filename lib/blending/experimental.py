@@ -7,9 +7,8 @@ from torch.utils.tensorboard import SummaryWriter
 from efficientnet.transformations import train_transform, normalize_image, rotate
 from efficientnet.utils import test_loader, create_predictions_probability
 from model.config import TrainConfig, ModelConfig, TestConfig
-from blending.utils import evaluate_model, create_predictions, load_datasets
+from blending.utils import evaluate_model, load_datasets
 from efficientnet.config import train_config as base_config
-from efficientnet_headed.config import train_config as classifier_config
 
 from model.utils import load_checkpoint
 

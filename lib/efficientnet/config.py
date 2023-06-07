@@ -2,18 +2,14 @@ import timm
 import torch
 
 from torch import nn, optim
-from torch.utils.tensorboard import SummaryWriter
 
 from efficientnet.transformations import rotate, train_transform
-from utilities.transformations import NormalizingConstants, normalize, light_augmentation_and_normalize, \
-        rotate_and_normalize
 from model.config import TrainConfig, ModelConfig, TestConfig
 from efficientnet.utils import evaluate_model, create_predictions, load_datasets
 
 
 def create_model_config():
-        # model = timm.create_model('tf_efficientnetv2_b3', pretrained = True, num_classes = 5)
-        model = timm.create_model('convnext_tiny', pretrained = True, num_classes = 5)
+        model = timm.create_model('tf_efficientnetv2_b3', pretrained = True, num_classes = 5)
         return ModelConfig(
                 model = model,
                 optimizer = optim.Adamax(
@@ -28,7 +24,6 @@ train_config = TrainConfig(
         device = "cuda",
 
         learning_parameters = {
-                # 'lr': 0.00001,
                 'lr': 0.0001,
                 'weight_decay' : 0.005
         },

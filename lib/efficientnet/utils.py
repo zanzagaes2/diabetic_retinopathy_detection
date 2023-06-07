@@ -8,7 +8,6 @@ from tqdm import tqdm
 from dataset.dataset import DRDataset
 from utilities.utilities import PathConstant, df_train, df_test, df_validation
 
-
 def load_datasets(train_config):
     train, validation = df_train(), df_validation()
 
@@ -82,33 +81,6 @@ def create_predictions(loader, model, loss_fn, device="cuda"):
            np.concatenate(all_values, axis=0, dtype=np.int64), \
            np.concatenate(all_names, axis = 0), \
            np.mean(all_losses)
-
-
-def create_predictions_with_entropy(loader, model, loss_fn, device="cuda"):
-    model.eval()
-    all_predictions, all_values, all_names, all_probabilities = [], [], [], []
-    T_star = 1.373
-
-    for batch, value, image_name in tqdm(loader):
-        batch = batch.to(device=device)
-        value = value.to(device=device).view(-1)
-
-        with torch.no_grad():
-            result = model(batch)
-        probability, predictions = torch.max(torch.nn.functional.softmax(result / T_star, dim = 1), dim = 1)
-        predictions = predictions.long()
-
-        all_predictions.append(predictions.detach().cpu().numpy())
-        all_values.append(value.detach().cpu().numpy())
-        all_names.append(image_name)
-        all_probabilities.append(probability.cpu().numpy())
-
-    model.train()
-
-    return np.concatenate(all_predictions, axis=0, dtype=np.int64), \
-           np.concatenate(all_values, axis=0, dtype=np.int64), \
-           np.concatenate(all_probabilities, axis = 0), \
-           np.concatenate(all_names, axis=0)
 
 def create_predictions_probability(loader, model, _, device="cuda"):
     model.eval()
